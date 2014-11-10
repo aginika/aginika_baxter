@@ -1,0 +1,16 @@
+#!/usr/bin/env roseus
+(ros::roseus "simple_baxter_training")
+(load "models/room73b2-scene.l")
+(load "package://baxtereus/baxter-interface.l")
+(load "models/room73b2-x-leg-desk-object.l")
+
+(defun setup()
+  (setq desk (room73b2-x-leg-desk))
+  (send desk :locate #f(5800 0 350 ) :world)
+  (send desk :rotate (deg2rad -90) :z :world)
+  (baxter-init)
+  (send *baxter* :rotate (deg2rad -90) :z :world)
+  (send *baxter* :locate #f(5800 540 900 ) :world)
+  (room73b2)
+  (objects (list *room73b2* *baxter* desk))
+  )
